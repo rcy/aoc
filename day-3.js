@@ -34,3 +34,75 @@ check(23, distance(23), 2)
 check(1024, distance(1024), 31)
 
 console.log('part1', distance(289326))
+
+
+/// part 2
+
+function g(a,x,y) {
+  return a[x][y] || 0;
+}
+
+function sum(a, x, y) {
+  return g(a, x+1,y-1) +
+         g(a, x+1,y) +
+         g(a, x+1,y+1) +
+         g(a, x,y-1) +
+         g(a, x,y) +
+         g(a, x,y+1) +
+         g(a, x-1,y-1) +
+         g(a, x-1,y) +
+         g(a, x-1,y+1);
+}
+
+function part2(target) {
+  const outerRing = root(target); //root(289326)
+
+  let a = []
+  for (let i = -outerRing; i < outerRing; i++) {
+    a[i] = []
+  }
+
+  a[0][0] = 1
+  let r = 3
+  y = 0
+  while (1) {
+    const s = (r - 1) / 2
+    x = s
+    
+    // move north
+    while (y > -s) {
+      const z = sum(a, x, y);
+      if (z > target) return z;
+      a[x][y] = z
+      y--
+    }
+    // move west
+    while (x > -s) {
+      const z = sum(a, x, y);
+      if (z > target) return z;
+      a[x][y] = z
+      x--
+    }
+    // move south
+    while (y < s) {
+      const z = sum(a, x, y);
+      if (z > target) return z;
+      a[x][y] = z
+      y++
+    }
+    // move east
+    while (x < s) {
+      const z = sum(a, x, y);
+      if (z > target) return z;
+      a[x][y] = z
+      x++
+    }
+    const z = sum(a, x, y);
+    if (z > target) return z;
+    a[x][y] = z
+
+    r += 2
+  }
+}
+
+console.log('part2', part2(289326))
