@@ -1,0 +1,6 @@
+* Advent of Code 2018
+
+This is the first code I have written using Go!
+
+The aim is not to have the most elegant code, or solve the problems
+quickly, but to get working knowledge of the language and to have fun.
