@@ -1,0 +1,20 @@
+* Advent of Code 2018
+
+This is the first code I have written using Go!
+
+The aim is not to have the most elegant code, or solve the problems
+quickly, but to get working knowledge of the language and to have fun.
+
+* Day 01
+https://adventofcode.com/2018/day/1
+
+I wrote the code to part A, and then copied the file over and modified
+it for part B.  Going forward I will try to have a single file with
+both solutions in it.
+
+* Day 02
+https://adventofcode.com/2018/day/2
+
+Worked with arrays.  Didn't use a scanner to process the input file
+line by line like I did on day 1, but instead read it all in as bytes
+and converted to string, then split into array.
