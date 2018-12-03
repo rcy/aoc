@@ -21,6 +21,12 @@ Worked with arrays.  Didn't use a scanner to process the input file
 line by line like I did on day 1, but instead read it all in as bytes
 and converted to string, then split into array.
 
+** Day 03
+https://adventofcode.com/2018/day/3
+
+Spent a time looking up how maps work in Go.  Lots of for loops in
+this language, much different than either Ruby or js where you can
+map, filter, and find.
 
 * 2017
 
