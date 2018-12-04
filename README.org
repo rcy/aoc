@@ -28,6 +28,14 @@ Spent a time looking up how maps work in Go.  Lots of for loops in
 this language, much different than either Ruby or js where you can
 map, filter, and find.
 
+** Day 04
+https://adventofcode.com/2018/day/3
+
+Used structs for the first time.  Some things seem tedious, like
+finding the max value in a map or hash using loops.  Cheated and
+sorted the input using `/bin/sort` (see Makefile in 'inputs/').
+
+
 * 2017
 
 I only did the first 7 days, doing the first three days with javascript, and the last three with elisp.
