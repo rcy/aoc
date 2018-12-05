@@ -29,12 +29,16 @@ this language, much different than either Ruby or js where you can
 map, filter, and find.
 
 ** Day 04
-https://adventofcode.com/2018/day/3
+https://adventofcode.com/2018/day/4
 
 Used structs for the first time.  Some things seem tedious, like
 finding the max value in a map or hash using loops.  Cheated and
 sorted the input using `/bin/sort` (see Makefile in 'inputs/').
 
+** Day 05
+https://adventofcode.com/2018/day/5
+
+Messed around with byte arrays.
 
 * 2017
 
