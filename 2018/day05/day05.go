@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-//	"math"
 )
 
 var input = flag.String("input", "../inputs/day05.txt", "The input to the problem.")
@@ -24,24 +23,49 @@ func main() {
 
 	bytes := bytesFromInput(*input)
 
-	bytes = reduce(bytes)
+	fmt.Println("partA:", len(reduce(bytes)) - 1)
 
-	fmt.Printf("%d %s", len(bytes) - 1, bytes)
+	trimmed := []byte{}
+
+	min := len(bytes)
+
+	for i := 'a'; i <= 'z'; i++ {
+		trimmed = trim(bytes, byte(i))
+		length := len(reduce(trimmed)) - 1
+		if length < min {
+			min = length
+		}
+	}
+	fmt.Println("partB:", min)
+}
+
+func trim(bytes []byte, remove byte) []byte {
+	result := []byte{}
+	for _, b := range bytes {
+		if b == remove || b == remove - 32 {
+			continue
+		}
+		result = append(result, b)
+	}
+	return result
 }
 
 func reduce(bytes []byte) []byte {
+	result := make([]byte, len(bytes))
+	copy(result, bytes)
+
 	lastByte := byte(0)
 
 	for {
 	top:
 		lastByte = byte(0)
-		for i, b := range bytes {
+		for i, b := range result {
 			if lastByte - b == 32 || b - lastByte == 32 {
-				bytes = append(bytes[0:i-1], bytes[i+1:]...)
+				result = append(result[0:i-1], result[i+1:]...)
 				goto top
 			}
 			lastByte = b
 		}
-		return bytes
+		return result
 	}
 }
