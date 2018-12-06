@@ -40,6 +40,12 @@ https://adventofcode.com/2018/day/5
 
 Messed around with byte arrays.
 
+** Day 06
+https://adventofcode.com/2018/day/6
+
+This one was tough, as I kinda got sidetracked building a grid which
+wasn't needed.  It did wind up being a neat visualization though.
+
 * 2017
 
 I only did the first 7 days, doing the first three days with javascript, and the last three with elisp.

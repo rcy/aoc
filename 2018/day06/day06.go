@@ -62,6 +62,8 @@ func main() {
 
 	grid := make([]string, (maxX + 1) * (maxY + 1))
 
+	safeArea := 0
+
 	// for each point on the grid mark the closest coord index
 	for y := 0; y <= maxY; y++ {
 		for x := 0; x <= maxX; x++ {
@@ -69,8 +71,11 @@ func main() {
 			closestIndex := -1
 			conflict := false
 
+			totalDistance := 0
+
 			for ci, c := range coords {
 				distance := Abs(x - c.x) + Abs(y - c.y)
+
 				if distance == closestValue {
 					conflict = true
 				}
@@ -79,9 +84,14 @@ func main() {
 					closestIndex = ci
 					conflict = false
 				}
+
+				totalDistance += distance
 			}
 			if !conflict {
 				set(grid, x, y, closestIndex)
+			}
+			if totalDistance < 10000 {
+				safeArea += 1
 			}
 		}
 	}
@@ -94,9 +104,10 @@ func main() {
 			}
 		}
 	}
-	fmt.Print("partA: ", max)
+	fmt.Println("partA: ", max)
+	fmt.Println("partB: ", safeArea)
 
-	//drawGrid(grid)
+	drawGrid(grid)
 }
 
 
