@@ -46,6 +46,11 @@ https://adventofcode.com/2018/day/6
 This one was tough, as I kinda got sidetracked building a grid which
 wasn't needed.  It did wind up being a neat visualization though.
 
+** Day 07
+https://adventofcode.com/2018/day/6
+
+Pointers.  And loops.
+
 * 2017
 
 I only did the first 7 days, doing the first three days with javascript, and the last three with elisp.

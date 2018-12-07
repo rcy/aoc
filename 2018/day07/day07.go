@@ -12,6 +12,7 @@ var input = flag.String("input", "../inputs/day07.txt", "The input to the proble
 
 type Node struct {
 	letter string
+	time int
 	deps []string
 }
 
@@ -27,16 +28,6 @@ func linesFromInput(filename string) []string {
 
 var nodemap map[string]*Node
 
-// func main() {
-// 	nodemap = make(map[string]*Node)
-// 	n := findOrMakeNode("A")
-// 	n.deps = append(n.deps, "A")
-// 	fmt.Println(n)
-// 	for k, v := range nodemap {
-// 		fmt.Println(k, *v, n)
-// 	}
-// }
-
 func main() {
 	flag.Parse()
 
@@ -44,23 +35,50 @@ func main() {
 
 	nodemap = make(map[string]*Node)
 
+	baseTime := 61
+
 	for _, line := range lines {
 		if len(line) > 0 {
 			tokens := strings.Split(line, " ")
-			n := findOrMakeNode(tokens[1])
-			m := findOrMakeNode(tokens[7])
+			n := findOrMakeNode(tokens[1], baseTime)
+			m := findOrMakeNode(tokens[7], baseTime)
 			m.deps = append(m.deps, n.letter)
 		}
 	}
 
-	var node *Node
+	workers := [5]*Node{}
 
-	for {
-		node = popNode()
-		if node == nil {
-			break
+	done := false
+
+	str := ""
+
+	for s := 0; !done; s++ {
+		for i, n := range workers {
+			if n == nil {
+				workers[i] = popNode()
+			} else {
+				n.time--
+				if n.time == 0 {
+					completeNode(n)
+					str += n.letter
+					workers[i] = popNode()
+				}
+			}
 		}
-		fmt.Print(node.letter)
+
+		fmt.Printf("% 3d", s)
+		done = true
+		for _, w := range workers {
+			if w == nil {
+				fmt.Print(" .")
+			} else {
+				fmt.Printf(" %s", w.letter)
+			}
+			if w != nil {
+				done = false
+			}
+		}
+		fmt.Printf("\t%s\n", str)
 	}
 }
 
@@ -79,19 +97,22 @@ func popNode() *Node {
 	}
 	//fmt.Println("deleting", next)
 
+
 	if next != nil {
 		delete(nodemap, next.letter)
-
-		// remove node from dependency lists
-		for _, node := range nodemap {
-			i := indexOf(node.deps, next.letter)
-			if i >= 0 {
-				node.deps = append(node.deps[:i], node.deps[i+1:]...)
-			}
-		}
 	}
 	
 	return next
+}
+
+func completeNode(done *Node) {
+	// remove node from dependency lists
+	for _, node := range nodemap {
+		i := indexOf(node.deps, done.letter)
+		if i >= 0 {
+			node.deps = append(node.deps[:i], node.deps[i+1:]...)
+		}
+	}
 }
 
 func indexOf(a []string, e string) int {
@@ -105,14 +126,14 @@ func indexOf(a []string, e string) int {
 
 func printNodeMap() {
 	for k, v := range nodemap {
-		fmt.Println(k, v.deps)
+		fmt.Println(k, v.time, v.deps)
 	}
 }
 
-func findOrMakeNode(letter string) *Node {
+func findOrMakeNode(letter string, baseTime int) *Node {
 	node := nodemap[letter]
 	if node == nil {
-		node = &Node{letter: letter}
+		node = &Node{letter: letter, time: baseTime + int(letter[0]) - 65}
 		nodemap[letter] = node
 	}
 	return node
