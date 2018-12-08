@@ -31,6 +31,7 @@ type Node struct {
 	mc int
 	children []*Node
 	metadata []int
+	mv int
 }
 
 func main() {
@@ -44,12 +45,13 @@ func main() {
 	for _, metadata := range collectMetadata(node) {
 		total += metadata
 	}
-	fmt.Println(total)
+	fmt.Println("partA:", total)
+
+	fmt.Println("partB:", value(node))
 }
 
 func collectMetadata(node *Node) []int {
 	metadata := []int{}
-	fmt.Println(node.metadata)
 	for _, n := range node.children {
 		metadata = append(metadata, collectMetadata(n)...)
 	}
@@ -57,9 +59,21 @@ func collectMetadata(node *Node) []int {
 	return metadata
 }
 
-func createNode(numbers []int) (*Node, int) {
-	fmt.Println("createNode", numbers)
+func value(node *Node) int {
+	v := 0
+	if len(node.children) == 0 {
+		v = node.mv
+	} else {
+		for _, i := range node.metadata {
+			if i-1 < len(node.children) {
+				v += value(node.children[i-1])
+			}
+		}
+	}
+	return v
+}
 
+func createNode(numbers []int) (*Node, int) {
 	cc := numbers[0]
 	mc := numbers[1]
 
@@ -74,6 +88,9 @@ func createNode(numbers []int) (*Node, int) {
 	}
 
 	node.metadata = numbers[p:p+mc]
+	for _, i := range node.metadata {
+		node.mv += i
+	}
 	p += mc
 
 	return &node, p

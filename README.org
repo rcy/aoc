@@ -51,6 +51,13 @@ https://adventofcode.com/2018/day/6
 
 Pointers.  And loops.
 
+** Day 08
+https://adventofcode.com/2018/day/6
+
+Early challenges just getting data split and parsed.  Node structure
+worked well, off by one error in second part.
+
+
 * 2017
 
 I only did the first 7 days, doing the first three days with javascript, and the last three with elisp.
