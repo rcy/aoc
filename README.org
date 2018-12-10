@@ -47,16 +47,21 @@ This one was tough, as I kinda got sidetracked building a grid which
 wasn't needed.  It did wind up being a neat visualization though.
 
 ** Day 07
-https://adventofcode.com/2018/day/6
+https://adventofcode.com/2018/day/7
 
 Pointers.  And loops.
 
 ** Day 08
-https://adventofcode.com/2018/day/6
+https://adventofcode.com/2018/day/8
 
 Early challenges just getting data split and parsed.  Node structure
 worked well, off by one error in second part.
 
+** Day 09
+https://adventofcode.com/2018/day/6
+
+Solved the first part, then had to rewrite to use linked lists rather
+than arrays for second part to fix algorithmic complexity.
 
 * 2017
 
