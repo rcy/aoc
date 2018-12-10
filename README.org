@@ -58,10 +58,16 @@ Early challenges just getting data split and parsed.  Node structure
 worked well, off by one error in second part.
 
 ** Day 09
-https://adventofcode.com/2018/day/6
+https://adventofcode.com/2018/day/9
 
 Solved the first part, then had to rewrite to use linked lists rather
 than arrays for second part to fix algorithmic complexity.
+
+** Day 10
+https://adventofcode.com/2018/day/10
+
+Briefly considered building a grid, but then decided to print by
+scanning.  Part 2 came for free this time.
 
 * 2017
 
