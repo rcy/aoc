@@ -1,5 +1,18 @@
 * Advent of Code
 
+* 2019
+
+I'm going to play with go again this year, definitely not going to win
+any speed awards, but I find switching things up from daily
+javascript programming to be a nice change.
+
+** Day 01
+
+Wow, hard to believe its been a year.  Good thing I had this repo to
+reuse my template.go file and have some structure to start with again.
+Easy first puzzle day, as usual, just getting the workflow established
+here.
+
 * 2018
 
 This is the first code I have written using Go!
