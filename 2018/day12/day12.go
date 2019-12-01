@@ -21,25 +21,48 @@ func linesFromInput(filename string) []string {
 	return strings.Split(str, "\n")
 }
 
-func loadFromFile() (Row, Rules) {
+func str2num(str string) int {
+	n := 0
+	for i := 0; i < len(str); i++ {
+		if str[i] == '#' {
+			n++
+		}
+		n <<= 1
+	}
+	return n >> 1
+}
+
+func loadFromFile() (int, [32]int) {
 	flag.Parse()
 
 	lines := linesFromInput(*input)
 
 	rowRe := regexp.MustCompile("^initial state: (.+)$")
 	match := rowRe.FindStringSubmatch(lines[0])
-	row := Row{pots: match[1], origin: 0}
+	fmt.Println(match[1])
+	n := str2num(match[1])
 
+	var rules [32]int
 	ruleRe := regexp.MustCompile("^(.....) => (.)$")
-	var rules Rules
-	for _, line := range lines[1:] {
-	 	if len(line) > 0 {
+	for _, line := range lines[2:] {
+		if len(line) > 0 {
 			match = ruleRe.FindStringSubmatch(line)
-			rule := Rule{match[1], match[2]}
-			rules = append(rules, rule)
-	 	}
+			if match[2] == "#" {
+				rules[str2num(match[1])] = 1
+			}
+		}
 	}
-	return row, rules
+	return n, rules
+}
+
+func render(n int) {
+	for ; n > 0; n >>= 1 {
+		if n & 1 == 1 {
+			fmt.Print("#")
+		} else {
+			fmt.Print(".")
+		}
+	}
 }
 
 type Row struct {
@@ -102,22 +125,27 @@ func pad(row Row) Row {
 }
 
 func main() {
-	row, rules := loadFromFile()
-	fmt.Println(rules)
-	fmt.Println("================")
-	row = pad(row)
-	fmt.Println(row)
-
-	for i := 0; i < 20; i++ {
-		row = pad(sequence(row, rules))
-		fmt.Println(row)
-	}
-
-	total := 0
-	for i := 0; i < len(row.pots); i++ {
-		if row.pots[i] == '#' {
-			total += i - row.origin
+	n, rules := loadFromFile()
+	//fmt.Println(n)
+	m := 0
+	fmt.Println("load", n, rules)
+	n <<= 2
+	for ; n >= 1; n >>= 1 {
+		//fmt.Print(n)
+		//render(n & 31)
+		for r := 0; r < 32; r++ {
+			fmt.Print(n, r)
+			if rules[r] == 1 {
+				if n & 31 == r {
+					fmt.Print("match")
+					m += 1
+				}
+			}
+			fmt.Println(" ", m)
 		}
+		m <<= 1
 	}
-	fmt.Println(total)
+	m <<= 1
+	fmt.Println("\n---", m)
+	render(m)
 }
