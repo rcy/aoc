@@ -15,6 +15,17 @@ here.
 
 https://github.com/rcy/aoc/tree/master/2019/day01
 
+** Day 02
+
+Most of the time spent working out how to copy arrays
+
+```go
+	p := make([]int, len(program))
+	copy(p, program)
+```
+
+https://github.com/rcy/aoc/tree/master/2019/day02
+
 * 2018
 
 This is the first code I have written using Go!
