@@ -48,29 +48,25 @@ func main() {
 	done:
 }
 
-func process(prog []int, noun int, verb int) int {
-	pc := 0
+func process(program []int, noun int, verb int) int {
+	ip := 0
 
-	program := make([]int, len(prog))
-	copy(program, prog)
+	p := make([]int, len(program))
+	copy(p, program)
 
-	program[1] = noun
-	program[2] = verb
+	p[1] = noun
+	p[2] = verb
 
-	for program[pc] != 99 {
-		//fmt.Printf("program = %d, pc=%d\n", program, pc)
-		if (program[pc] == 1) {
-			//fmt.Printf("addition %d %d", program[program[pc+1]], program[program[pc+1]])
+	for p[ip] != 99 {
+		if (p[ip] == 1) {
 			// addition
-			program[program[pc + 3]] = program[program[pc + 1]] + program[program[pc + 2]]
+			p[p[ip + 3]] = p[p[ip + 1]] + p[p[ip + 2]]
+		} else {
+			// multiplication
+			p[p[ip + 3]] = p[p[ip + 1]] * p[p[ip + 2]]
 		}
-		if (program[pc] == 2) {
-			//fmt.Printf("addition %d %d", program[program[pc+1]], program[program[pc+1]])
-			// addition
-			program[program[pc + 3]] = program[program[pc + 1]] * program[program[pc + 2]]
-		}
-		pc = pc + 4
+		ip += 4
 	}
 
-	return program[0]
+	return p[0]
 }
