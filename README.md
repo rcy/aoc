@@ -26,6 +26,14 @@ Most of the time spent working out how to copy arrays
 
 https://github.com/rcy/aoc/tree/master/2019/day02
 
+## Day 03
+
+Reading the instructions fully is always a good idea.  Struggled with part 1 because I was counting wire's crossing with themselves as intersections.
+
+Also, the grid strategy I used is a hack, need to allocate a massive 2d array for the puzzle input.  Not sure how to do this more space efficiently.  Another issue is that the size is staticly defined.
+
+The process I used to find the closest to origin intersection is really bad too.  It scans every grid position starting in the upper right all the way to the lower left.  Scanning rings out from the centre would allow quitting once the first one is found.
+
 # 2018
 
 This is the first code I have written using Go!
