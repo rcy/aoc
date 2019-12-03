@@ -15,6 +15,7 @@ var input = flag.String("input", "./input", "The input to the problem.")
 type Grid struct {
 	size int
 	data [][]byte
+	ixsteps map[string]int
 }
 
 func (g *Grid) print() {
@@ -58,16 +59,20 @@ func (g *Grid) init() {
 	for i := range g.data {
 		g.data[i] = make([]byte, g.size)
 	}
+	g.ixsteps = make(map[string]int)
 }
 
 func (g *Grid) run(path []string, code byte) {
+	fmt.Println("running path", code)
+	var steps = 0
 	var x = 0
 	var y = 0
 	for _, leg := range path {
 		dir := leg[0]
 		len, _ := strconv.Atoi(leg[1:])
-		//fmt.Printf("%c %d\n", dir, len)
 		for i := 0; i < len; i++ {
+			steps += 1
+
 			if (dir == 'R') {
 				x += 1
 			} else if (dir == 'L') {
@@ -79,13 +84,18 @@ func (g *Grid) run(path []string, code byte) {
 			} else {
 				panic(0)
 			}
-			g.set(x, y, code)
+			if (g.set(x, y, code) == 3) {
+				key := fmt.Sprintf("%d %d", x, y)
+				g.ixsteps[key] += steps
+				fmt.Println(x,y, steps)
+			}
 		}
 	}
 }
 
-func (g *Grid) set(x int, y int, code byte) {
+func (g *Grid) set(x int, y int, code byte) byte {
 	g.data[g.size / 2 + y][g.size / 2 + x] |= code
+	return g.data[g.size / 2 + y][g.size / 2 + x]
 }
 
 func pathFromLine(line string) []string {
@@ -116,31 +126,20 @@ func main() {
 
 	grid.run(paths[0], 1)
 	grid.run(paths[1], 2)
+	grid.run(paths[0], 1)
 
-//	grid.print()
+	fmt.Println("part 1", grid.findNearestCrossDistance())
 
-	fmt.Println(grid.findNearestCrossDistance())
+	mins := 0
+	mink := ""
+	for k, s := range grid.ixsteps {
+		if mins == 0 || s < mins {
+			mins = s
+			mink = k
+		}
+	}
+	x := 0
+	y := 0
+	fmt.Sscanf(mink, "%d %d", &x, &y)
+	fmt.Println(mins)
 }
-
-
-// ...........
-// ...........
-// ...........
-// ....+----+.
-// ....|....|.
-// ....|....|.
-// ....|....|.
-// .........|.
-// .o-------+.
-// ...........
-
-// ...........
-// .+-----+...
-// .|.....|...
-// .|..+--X-+.
-// .|..|..|.|.
-// .|.-X--+.|.
-// .|..|....|.
-// .|.......|.
-// .o-------+.
-// ...........
