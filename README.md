@@ -34,6 +34,10 @@ Also, the grid strategy I used is a hack, need to allocate a massive 2d array fo
 
 The process I used to find the closest to origin intersection is really bad too.  It scans every grid position starting in the upper right all the way to the lower left.  Scanning rings out from the centre would allow quitting once the first one is found.
 
+## Day 04
+
+I punted and used javascript today.  Was fun to just work on the puzzle and not fight with how to do basic things so much.  Struggled a bit with the twist in part 2, I wound up not disqualifying passwords like 444555 because my replacement regex didn't match more than once.
+
 # 2018
 
 This is the first code I have written using Go!
