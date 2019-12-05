@@ -33,6 +33,9 @@ func main() {
 	
 	// part 1
 	run(program, 1)
+
+	// part 2
+	run(program, 5)
 }
 
 func output(value int) {
@@ -41,8 +44,7 @@ func output(value int) {
 
 func code(value int) []int {
 	params := []int{0,0,0,0}
-	// last 2 digits are opcode
-	params[0] = value % 100
+	params[0] = value % 100 // opcode
 	params[1] = value / 100 % 10
 	params[2] = value / 100 / 10 % 10
 	params[3] = value / 100 / 10 / 10 % 10
@@ -95,8 +97,42 @@ func run(program []int, input int) int {
 		} else if (inst[0] == 4) {
 			// writeoutput
 			fmt.Println("EMIT", p[ip:ip+2])
-			output(p[p[ip + 1]])
+			output(lookup(p, p[ip + 1], inst[1]))
 			ip += 2
+		} else if (inst[0] == 5) {
+			// jump-if-true
+			fmt.Println("JUMP-IF-TRUE", p[ip:ip+3])
+			if (lookup(p, p[ip+1], inst[1]) > 0) {
+				ip = lookup(p, p[ip+2], inst[2])
+			} else {
+				ip += 3
+			}
+		} else if (inst[0] == 6) {
+			// jump-if-false
+			fmt.Println("JUMP-IF-FALSE", p[ip:ip+3])
+			if (lookup(p, p[ip+1], inst[1]) == 0) {
+				ip = lookup(p, p[ip+2], inst[2])
+			} else {
+				ip += 3
+			}
+		} else if (inst[0] == 7) {
+			// less-than
+			fmt.Println("LESS-THAN", p[ip:ip+4])
+			if (lookup(p, p[ip+1], inst[1]) < lookup(p, p[ip+2], inst[2])) {
+				p[p[ip+3]] = 1
+			} else {
+				p[p[ip+3]] = 0
+			}
+			ip += 4
+		} else if (inst[0] == 8) {
+			// equals
+			fmt.Println("EQUALS", p[ip:ip+4])
+			if (lookup(p, p[ip+1], inst[1]) == lookup(p, p[ip+2], inst[2])) {
+				p[p[ip+3]] = 1
+			} else {
+				p[p[ip+3]] = 0
+			}
+			ip += 4
 		} else {
 			panic("unknown opcode")
 		}
