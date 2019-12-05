@@ -38,6 +38,10 @@ The process I used to find the closest to origin intersection is really bad too.
 
 I punted and used javascript today.  Was fun to just work on the puzzle and not fight with how to do basic things so much.  Struggled a bit with the twist in part 2, I wound up not disqualifying passwords like 444555 because my replacement regex didn't match more than once.
 
+## Day 05
+
+Went back to Go for this one, this was fun.  A small assembler.  Nothing too tricky about this, just lots of indirection/pointers.  The tests cases provided were helpful.
+
 # 2018
 
 This is the first code I have written using Go!
