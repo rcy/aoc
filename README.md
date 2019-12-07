@@ -42,6 +42,10 @@ I punted and used javascript today.  Was fun to just work on the puzzle and not 
 
 Went back to Go for this one, this was fun.  A small assembler.  Nothing too tricky about this, just lots of indirection/pointers.  The tests cases provided were helpful.
 
+## Day 06
+
+Fell behind a day, did this one a day late.  Graph problems are fun.
+
 # 2018
 
 This is the first code I have written using Go!
