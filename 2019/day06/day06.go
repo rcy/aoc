@@ -23,6 +23,8 @@ func linesFromInput(filename string) []string {
 type Node struct {
 	name string
 	orbits []*Node
+	center *Node
+	transfers int
 }
 
 var nodeMap map[string]*Node
@@ -41,6 +43,22 @@ func main() {
 		}
 	}
 	fmt.Println("Part One:", countOrbits(lookup("COM"), 0))
+	fmt.Println("Part Two:", countTransfers())
+}
+
+func countTransfers() int {
+	for you := lookup("YOU").center; you.name != "COM"; you = you.center {
+		you.center.transfers += 1 + you.transfers
+	}
+
+	transfers := 0
+	for san := lookup("SAN").center; san.name != "COM"; san = san.center {
+		transfers += 1 + san.center.transfers
+		if (san.center.transfers > 0) {
+			return transfers
+		}
+	}
+	return 0
 }
 
 func countOrbits(node *Node, depth int) int {
@@ -76,4 +94,5 @@ func makeOrbit(c string, o string) {
 		orbit = create(o)
 	}
 	center.orbits = append(center.orbits, orbit)
+	orbit.center = center
 }
