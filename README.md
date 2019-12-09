@@ -46,6 +46,21 @@ Went back to Go for this one, this was fun.  A small assembler.  Nothing too tri
 
 Fell behind a day, did this one a day late.  Graph problems are fun.
 
+## Day 07
+
+Completed part 1... leaving part 2 for later after catching up!
+
+## Day 08
+
+```
+ ##  #   ##  #  ##  #  # 
+#  # #   ##  # #  # #  # 
+#     # # #  # #  # #### 
+#      #  #  # #### #  # 
+#  #   #  #  # #  # #  # 
+ ##    #   ##  #  # #  # 
+```
+
 # 2018
 
 This is the first code I have written using Go!
