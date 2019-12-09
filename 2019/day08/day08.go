@@ -25,13 +25,42 @@ func main() {
 
 	lines := linesFromInput(*input)
 
-	part1(lines[0])
+	width := 25
+	height := 6
+
+	part1(lines[0], width, height)
+	part2(lines[0], width, height)
 }
 
-func part1(input string) {
+func part2(input string, width int, height int) {
+	result := make([]rune, width * height)
+	layers := getLayers(input, width, height)
+
+	for i := len(layers) - 1; i >= 0; i-- {
+		layer := layers[i]
+		for i, ch := range layer {
+			if ch != '2' {
+				result[i] = ch
+			}
+		}
+	}
+
+	for i, ch := range result {
+		if i % width == 0 {
+			fmt.Println()
+		}
+		if (ch == '1') {
+			fmt.Print("#")
+		} else {
+			fmt.Print(" ")
+		}
+	}
+}
+
+func part1(input string, width int, height int) {
 	min := -1
 	var result int
-	for i, layer := range getLayers(input, 25, 6) {
+	for i, layer := range getLayers(input, width, height) {
 		counts := countChars(layer)
 		if min == -1 || counts[0] < min {
 			min = counts[0]
@@ -56,7 +85,6 @@ func getLayers(data string, width int, height int) []string{
 
 	layers := make([]string, numLayers)
 
-	fmt.Println("numLayers", numLayers)
 	var layer string
 
 	for i := 0; i < numLayers; i++ {
